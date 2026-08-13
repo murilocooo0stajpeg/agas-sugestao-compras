@@ -1,0 +1,4005 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>AGAS | Gestão de Compras</title>
+
+
+<style>
+
+/* =====================================================
+   CONFIGURAÇÕES
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+
+    --azul:#0757a0;
+    --azul-escuro:#04396b;
+    --azul-medio:#1681d8;
+    --azul-claro:#edf6ff;
+
+    --branco:#ffffff;
+
+    --texto:#17324d;
+    --cinza:#60758a;
+    --cinza-claro:#f4f8fc;
+
+    --borda:#dbe7f1;
+
+    --verde:#16834a;
+    --amarelo:#a66a00;
+    --vermelho:#c62828;
+
+    --sombra:
+        0 8px 28px rgba(20,65,105,.08);
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body{
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #edf6ff 0%,
+            #ffffff 42%,
+            #f4f8fc 100%
+        );
+
+    color:var(--texto);
+
+    min-height:100vh;
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+#loginPage{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #04396b 0%,
+            #0757a0 50%,
+            #1681d8 100%
+        );
+}
+
+
+.login-box{
+
+    width:min(420px,100%);
+
+    background:
+        rgba(255,255,255,.97);
+
+    border-radius:18px;
+
+    padding:32px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,30,70,.28);
+
+}
+
+
+.login-brand{
+
+    text-align:center;
+
+    margin-bottom:25px;
+}
+
+
+.login-logo{
+
+    width:80px;
+
+    height:70px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+
+.login-logo svg{
+
+    width:75px;
+
+    height:65px;
+}
+
+
+.login-brand-name{
+
+    font-size:35px;
+
+    font-weight:900;
+
+    letter-spacing:-1.5px;
+
+    color:var(--azul-escuro);
+
+}
+
+
+.login-brand-subtitle{
+
+    font-size:9px;
+
+    font-weight:700;
+
+    letter-spacing:1.2px;
+
+    color:#71869a;
+
+    margin-top:4px;
+}
+
+
+.login-title{
+
+    font-size:19px;
+
+    color:#173e63;
+
+    margin-bottom:5px;
+
+}
+
+
+.login-description{
+
+    font-size:12px;
+
+    color:#7a8d9f;
+
+    margin-bottom:20px;
+}
+
+
+.login-field{
+
+    margin-bottom:14px;
+}
+
+
+.login-field label{
+
+    display:block;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    color:#40586e;
+
+    margin-bottom:5px;
+}
+
+
+.login-field input,
+.login-field select{
+
+    width:100%;
+
+    padding:12px;
+
+    border:
+
+        1px solid
+        #d4e1eb;
+
+    border-radius:9px;
+
+    background:#fbfdff;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    color:var(--texto);
+
+    outline:none;
+}
+
+
+.login-field input:focus,
+.login-field select:focus{
+
+    border-color:
+        var(--azul-medio);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22,129,216,.08);
+}
+
+
+.login-button{
+
+    width:100%;
+
+    margin-top:5px;
+
+    padding:12px;
+
+    border:0;
+
+    border-radius:9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0757a0,
+            #1681d8
+        );
+
+    color:white;
+
+    font-weight:800;
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 6px 15px
+        rgba(7,87,160,.2);
+
+    transition:.2s;
+}
+
+
+.login-button:hover{
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.login-info{
+
+    margin-top:16px;
+
+    padding:11px;
+
+    border-radius:8px;
+
+    background:#f0f7fe;
+
+    border:1px solid #d9eafb;
+
+    font-size:10px;
+
+    color:#637b90;
+
+    line-height:1.5;
+}
+
+
+.login-error{
+
+    display:none;
+
+    background:#fff0f0;
+
+    border:1px solid #ffd3d3;
+
+    color:#c62828;
+
+    border-radius:8px;
+
+    padding:10px;
+
+    margin-bottom:13px;
+
+    font-size:11px;
+
+    font-weight:600;
+}
+
+
+/* =====================================================
+   SISTEMA
+===================================================== */
+
+#systemPage{
+
+    display:none;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+
+    background:
+        linear-gradient(
+            110deg,
+            #04396b 0%,
+            #0757a0 48%,
+            #1681d8 100%
+        );
+
+    color:white;
+
+    padding:17px 22px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,60,120,.18);
+}
+
+
+.header-container{
+
+    max-width:1250px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+
+.logo-mark{
+
+    width:58px;
+
+    height:58px;
+
+    flex-shrink:0;
+}
+
+
+.logo-mark svg{
+
+    width:58px;
+
+    height:58px;
+}
+
+
+.brand-name{
+
+    font-size:30px;
+
+    font-weight:900;
+
+    letter-spacing:-1.5px;
+}
+
+
+.brand-subtitle{
+
+    font-size:9px;
+
+    font-weight:700;
+
+    letter-spacing:1.3px;
+
+    margin-top:5px;
+
+    opacity:.9;
+}
+
+
+.header-user{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    text-align:right;
+}
+
+
+.user-name{
+
+    font-size:13px;
+
+    font-weight:800;
+}
+
+
+.user-sector{
+
+    font-size:10px;
+
+    opacity:.78;
+
+    margin-top:3px;
+}
+
+
+.logout-button{
+
+    background:
+        rgba(255,255,255,.12);
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    color:white;
+
+    border-radius:8px;
+
+    padding:8px 11px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+main{
+
+    width:
+        min(
+            1250px,
+            calc(100% - 32px)
+        );
+
+    margin:
+        22px auto 30px;
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:14px;
+
+    margin-bottom:18px;
+}
+
+
+.card{
+
+    background:
+        rgba(255,255,255,.9);
+
+    border:
+        1px solid
+        rgba(213,227,240,.9);
+
+    border-radius:13px;
+
+    padding:16px 18px;
+
+    box-shadow:var(--sombra);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:4px;
+
+    height:100%;
+
+    background:var(--azul);
+}
+
+
+.card-title{
+
+    color:var(--cinza);
+
+    font-size:10px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+    margin-bottom:6px;
+}
+
+
+.card-value{
+
+    color:
+        var(--azul-escuro);
+
+    font-size:25px;
+
+    font-weight:800;
+}
+
+
+.card-description{
+
+    color:#8294a5;
+
+    font-size:10px;
+
+    margin-top:3px;
+}
+
+
+/* =====================================================
+   TOOLBAR
+===================================================== */
+
+.toolbar{
+
+    background:
+        rgba(255,255,255,.9);
+
+    border:
+        1px solid
+        var(--borda);
+
+    border-radius:13px;
+
+    padding:11px 13px;
+
+    margin-bottom:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    box-shadow:var(--sombra);
+}
+
+
+.search-box{
+
+    flex:1;
+
+    position:relative;
+}
+
+
+.search-box input{
+
+    width:100%;
+
+    padding:
+        10px 12px 10px 35px;
+
+    border:
+        1px solid
+        #d4e1eb;
+
+    border-radius:8px;
+
+    outline:none;
+
+    font-family:inherit;
+
+    font-size:12px;
+}
+
+
+.search-icon{
+
+    position:absolute;
+
+    left:12px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    color:#7890a5;
+}
+
+
+.filter-select{
+
+    width:180px;
+
+    padding:10px;
+
+    border:
+        1px solid
+        #d4e1eb;
+
+    border-radius:8px;
+
+    background:white;
+
+    color:var(--texto);
+
+    font-family:inherit;
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content{
+
+    display:grid;
+
+    grid-template-columns:
+        330px
+        minmax(0,1fr);
+
+    gap:18px;
+
+    align-items:start;
+}
+
+
+/* =====================================================
+   PANEL
+===================================================== */
+
+.panel{
+
+    background:
+        rgba(255,255,255,.93);
+
+    border:
+        1px solid
+        var(--borda);
+
+    border-radius:15px;
+
+    padding:19px;
+
+    box-shadow:var(--sombra);
+}
+
+
+.panel-title{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:16px;
+}
+
+
+.panel-title h2{
+
+    font-size:17px;
+
+    color:#163c60;
+}
+
+
+.panel-title small{
+
+    color:#8091a1;
+
+    font-size:10px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group{
+
+    margin-bottom:10px;
+}
+
+
+label{
+
+    display:block;
+
+    color:#40586e;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    margin-bottom:5px;
+}
+
+
+input,
+select{
+
+    width:100%;
+
+    padding:10px 11px;
+
+    border:
+        1px solid
+        #d4e1eb;
+
+    border-radius:8px;
+
+    background:#fbfdff;
+
+    color:#17324d;
+
+    font-family:inherit;
+
+    font-size:12px;
+
+    outline:none;
+}
+
+
+input:focus,
+select:focus{
+
+    border-color:
+        var(--azul-medio);
+
+    background:white;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22,129,216,.08);
+}
+
+
+.btn-primary{
+
+    width:100%;
+
+    margin-top:4px;
+
+    padding:10px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0757a0,
+            #1681d8
+        );
+
+    color:white;
+
+    font-family:inherit;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+
+.tip{
+
+    margin-top:13px;
+
+    padding:11px;
+
+    background:#f0f7fe;
+
+    border:
+        1px solid
+        #d7eafb;
+
+    border-radius:8px;
+
+    color:#526d84;
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+
+.tip strong{
+
+    display:block;
+
+    color:#0757a0;
+
+    margin-bottom:3px;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-container{
+
+    overflow-x:auto;
+}
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:850px;
+}
+
+
+th{
+
+    background:#f6f9fc;
+
+    color:#657b8f;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.35px;
+}
+
+
+th,
+td{
+
+    padding:10px 8px;
+
+    border-bottom:
+        1px solid
+        #edf2f6;
+
+    text-align:left;
+
+    font-size:11px;
+}
+
+
+tbody tr:hover{
+
+    background:#f8fbfe;
+}
+
+
+.product-name{
+
+    color:#173e63;
+
+    font-weight:700;
+}
+
+
+.product-info{
+
+    color:#8a9baa;
+
+    font-size:9px;
+
+    margin-top:2px;
+}
+
+
+.category{
+
+    display:inline-block;
+
+    background:#edf6ff;
+
+    color:#17629c;
+
+    padding:4px 7px;
+
+    border-radius:20px;
+
+    font-size:9px;
+
+    font-weight:700;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    border-radius:50px;
+
+    padding:5px 8px;
+
+    font-size:8px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+.status-dot{
+
+    width:5px;
+
+    height:5px;
+
+    border-radius:50%;
+
+    background:currentColor;
+}
+
+
+.normal{
+
+    background:#e9f7ef;
+
+    color:#187542;
+}
+
+
+.atencao{
+
+    background:#fff5dd;
+
+    color:#986400;
+}
+
+
+.urgente{
+
+    background:#ffebeb;
+
+    color:#c62828;
+}
+
+
+.compra{
+
+    color:#0757a0;
+
+    font-weight:800;
+
+    font-size:14px;
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.action-button{
+
+    border:0;
+
+    border-radius:7px;
+
+    padding:6px 8px;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    margin-right:3px;
+}
+
+
+.edit{
+
+    background:#edf6ff;
+
+    color:#0757a0;
+}
+
+
+.delete{
+
+    background:#fff0f0;
+
+    color:#c62828;
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:9px;
+
+    margin-top:14px;
+}
+
+
+.summary-item{
+
+    background:#f7faff;
+
+    border:
+        1px solid
+        #e1edf7;
+
+    border-radius:8px;
+
+    padding:10px;
+}
+
+
+.summary-label{
+
+    color:#8093a4;
+
+    font-size:9px;
+}
+
+
+.summary-value{
+
+    color:#174b78;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    margin-top:3px;
+}
+
+
+/* =====================================================
+   RECOMMENDATION
+===================================================== */
+
+.recommendation{
+
+    margin-top:14px;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    background:#f8fbfe;
+
+    border:
+        1px solid
+        #e0ebf4;
+
+    color:#536b80;
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+
+.recommendation-title{
+
+    color:#174b78;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    margin-bottom:4px;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+
+    padding:35px 15px;
+
+    text-align:center;
+
+    color:#8798a7;
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(8,43,75,.45);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    z-index:1000;
+
+    backdrop-filter:blur(3px);
+}
+
+
+.modal{
+
+    width:
+        min(420px,100%);
+
+    max-height:
+        90vh;
+
+    overflow-y:auto;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:21px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,40,80,.2);
+}
+
+
+.modal h3{
+
+    color:#173e63;
+
+    margin-bottom:15px;
+}
+
+
+.modal-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:8px;
+
+    margin-top:17px;
+}
+
+
+.btn-secondary{
+
+    background:#edf5fc;
+
+    color:#0757a0;
+
+    border:0;
+
+    border-radius:8px;
+
+    padding:9px 12px;
+
+    font-family:inherit;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+    margin-top:25px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #04396b,
+            #0757a0
+        );
+
+    color:white;
+
+    padding:21px;
+
+    text-align:center;
+}
+
+
+.footer-brand{
+
+    font-size:14px;
+
+    font-weight:800;
+}
+
+
+.footer-description{
+
+    margin-top:4px;
+
+    font-size:10px;
+
+    opacity:.78;
+}
+
+
+.support{
+
+    margin-top:11px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:7px 13px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    border-radius:50px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    font-size:10px;
+}
+
+
+.support strong{
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media(max-width:1000px){
+
+    .dashboard{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .content{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    main{
+
+        width:
+            calc(100% - 20px);
+
+    }
+
+    .dashboard{
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:8px;
+
+    }
+
+    .card{
+
+        padding:13px;
+
+    }
+
+    .card-value{
+
+        font-size:21px;
+
+    }
+
+    .header-user{
+
+        display:none;
+
+    }
+
+    .brand-name{
+
+        font-size:25px;
+
+    }
+
+    .brand-subtitle{
+
+        font-size:7px;
+
+    }
+
+    .toolbar{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .filter-select{
+
+        width:100%;
+
+    }
+
+    .summary{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+/* =====================================================
+   IMPRESSÃO
+===================================================== */
+
+@media print{
+
+    header{
+
+        background:white !important;
+
+        color:#17324d !important;
+
+    }
+
+    .toolbar,
+    .content > .panel:first-child,
+    .action-button,
+    footer{
+
+        display:none !important;
+
+    }
+
+    .content{
+
+        display:block;
+
+    }
+
+    main{
+
+        width:100%;
+
+        margin:0;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<section id="loginPage">
+
+<div class="login-box">
+
+
+    <div class="login-brand">
+
+
+        <div class="login-logo">
+
+            <svg
+                viewBox="0 0 90 70"
+                xmlns="http://www.w3.org/2000/svg">
+
+                <path
+                    d="M5 9
+                       H15
+                       L22 43
+                       H67
+                       L78 19
+                       H20"
+                    fill="none"
+                    stroke="#0757a0"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+
+                <circle
+                    cx="31"
+                    cy="55"
+                    r="5"
+                    fill="#0757a0"/>
+
+                <circle
+                    cx="63"
+                    cy="55"
+                    r="5"
+                    fill="#0757a0"/>
+
+                <path
+                    d="M24 47 H69"
+                    fill="none"
+                    stroke="#0757a0"
+                    stroke-width="4"
+                    stroke-linecap="round"/>
+
+            </svg>
+
+        </div>
+
+
+        <div class="login-brand-name">
+            AGAS
+        </div>
+
+
+        <div class="login-brand-subtitle">
+            ASSOCIAÇÃO GAÚCHA DE SUPERMERCADOS
+        </div>
+
+    </div>
+
+
+    <div class="login-title">
+
+        Acesso do colaborador
+
+    </div>
+
+
+    <div class="login-description">
+
+        Informe seus dados para acessar
+        o sistema de gestão de compras.
+
+    </div>
+
+
+    <div
+        class="login-error"
+        id="loginError">
+
+        Informe corretamente seus dados
+        para continuar.
+
+    </div>
+
+
+    <div class="login-field">
+
+        <label>
+            Nome do colaborador
+        </label>
+
+        <input
+            type="text"
+            id="loginNome"
+            placeholder="Digite seu nome">
+
+    </div>
+
+
+    <div class="login-field">
+
+        <label>
+            CPF
+        </label>
+
+        <input
+            type="text"
+            id="loginCpf"
+            placeholder="000.000.000-00"
+            maxlength="14"
+            oninput="formatarCPF(this)">
+
+    </div>
+
+
+    <div class="login-field">
+
+        <label>
+            Setor
+        </label>
+
+        <select id="loginSetor">
+
+            <option value="">
+                Selecione o setor
+            </option>
+
+            <option>
+                Compras
+            </option>
+
+            <option>
+                Estoque
+            </option>
+
+            <option>
+                Administração
+            </option>
+
+            <option>
+                Gerência
+            </option>
+
+            <option>
+                Operações
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <button
+        class="login-button"
+        onclick="entrarSistema()">
+
+        Acessar sistema
+
+    </button>
+
+
+    <div class="login-info">
+
+        <strong>Acesso demonstrativo</strong><br>
+
+        Nome: Carlos Henrique Silva<br>
+        CPF: 123.456.789-00<br>
+        Setor: Compras
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SISTEMA
+===================================================== -->
+
+<section id="systemPage">
+
+
+<header>
+
+<div class="header-container">
+
+
+    <div class="brand">
+
+
+        <div class="logo-mark">
+
+            <svg
+                viewBox="0 0 90 70"
+                xmlns="http://www.w3.org/2000/svg">
+
+                <path
+                    d="M5 9
+                       H15
+                       L22 43
+                       H67
+                       L78 19
+                       H20"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+
+                <circle
+                    cx="31"
+                    cy="55"
+                    r="5"
+                    fill="white"/>
+
+                <circle
+                    cx="63"
+                    cy="55"
+                    r="5"
+                    fill="white"/>
+
+                <path
+                    d="M24 47 H69"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="4"
+                    stroke-linecap="round"/>
+
+            </svg>
+
+        </div>
+
+
+        <div>
+
+            <div class="brand-name">
+                AGAS
+            </div>
+
+            <div class="brand-subtitle">
+                ASSOCIAÇÃO GAÚCHA DE SUPERMERCADOS
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-user">
+
+
+        <div>
+
+            <div
+                class="user-name"
+                id="usuarioLogado">
+
+                Colaborador
+
+            </div>
+
+
+            <div
+                class="user-sector"
+                id="setorLogado">
+
+                Setor
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="logout-button"
+            onclick="sairSistema()">
+
+            Sair
+
+        </button>
+
+
+    </div>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section class="dashboard">
+
+
+    <div class="card">
+
+        <div class="card-title">
+            Produtos analisados
+        </div>
+
+        <div
+            class="card-value"
+            id="totalProdutos">
+
+            0
+
+        </div>
+
+        <div class="card-description">
+            Produtos cadastrados
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-title">
+            Para comprar
+        </div>
+
+        <div
+            class="card-value"
+            id="produtosComprar">
+
+            0
+
+        </div>
+
+        <div class="card-description">
+            Necessitam reposição
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-title">
+            Unidades
+        </div>
+
+        <div
+            class="card-value"
+            id="totalUnidades">
+
+            0
+
+        </div>
+
+        <div class="card-description">
+            Quantidade sugerida
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-title">
+            Valor estimado
+        </div>
+
+        <div
+            class="card-value"
+            id="valorCompras">
+
+            R$ 0,00
+
+        </div>
+
+        <div class="card-description">
+            Custo estimado
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     BUSCA
+===================================================== -->
+
+<section class="toolbar">
+
+
+    <div class="search-box">
+
+        <span class="search-icon">
+            &#9906;
+        </span>
+
+        <input
+            type="text"
+            id="busca"
+            placeholder="Pesquisar produto..."
+            oninput="renderizar()">
+
+    </div>
+
+
+    <select
+        id="filtroCategoria"
+        class="filter-select"
+        onchange="renderizar()">
+
+        <option value="todas">
+            Todas as categorias
+        </option>
+
+        <option>
+            Lácteos
+        </option>
+
+        <option>
+            Bebidas
+        </option>
+
+        <option>
+            Alimentos
+        </option>
+
+        <option>
+            Hortifruti
+        </option>
+
+        <option>
+            Higiene e Limpeza
+        </option>
+
+        <option>
+            Padaria
+        </option>
+
+        <option>
+            Açougue
+        </option>
+
+        <option>
+            Congelados
+        </option>
+
+        <option>
+            Mercearia
+        </option>
+
+        <option>
+            Outros
+        </option>
+
+    </select>
+
+
+    <select
+        id="filtroStatus"
+        class="filter-select"
+        onchange="renderizar()">
+
+        <option value="todos">
+            Todas as situações
+        </option>
+
+        <option value="urgente">
+            Comprar agora
+        </option>
+
+        <option value="atencao">
+            Comprar em breve
+        </option>
+
+        <option value="normal">
+            Estoque adequado
+        </option>
+
+    </select>
+
+
+    <button
+        class="btn-secondary"
+        onclick="window.print()">
+
+        Imprimir
+
+    </button>
+
+
+</section>
+
+
+<!-- =====================================================
+     CONTEÚDO
+===================================================== -->
+
+<section class="content">
+
+
+<!-- =====================================================
+     CADASTRO
+===================================================== -->
+
+<div class="panel">
+
+
+    <div class="panel-title">
+
+        <h2>
+            Nova demanda
+        </h2>
+
+        <small>
+            Cadastro rápido
+        </small>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Produto
+        </label>
+
+        <input
+            type="text"
+            id="produto"
+            placeholder="Ex.: Leite integral 1L">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Categoria
+        </label>
+
+        <select id="categoria">
+
+            <option value="">
+                Selecione
+            </option>
+
+            <option>
+                Lácteos
+            </option>
+
+            <option>
+                Bebidas
+            </option>
+
+            <option>
+                Alimentos
+            </option>
+
+            <option>
+                Hortifruti
+            </option>
+
+            <option>
+                Higiene e Limpeza
+            </option>
+
+            <option>
+                Padaria
+            </option>
+
+            <option>
+                Açougue
+            </option>
+
+            <option>
+                Congelados
+            </option>
+
+            <option>
+                Mercearia
+            </option>
+
+            <option>
+                Outros
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Venda média por dia
+        </label>
+
+        <input
+            type="number"
+            id="vendas"
+            min="0"
+            step="0.1"
+            placeholder="Ex.: 15">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Estoque atual
+        </label>
+
+        <input
+            type="number"
+            id="estoque"
+            min="0"
+            placeholder="Ex.: 40">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Prazo do fornecedor
+        </label>
+
+        <input
+            type="number"
+            id="prazo"
+            min="0"
+            placeholder="Dias">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Estoque de segurança
+        </label>
+
+        <input
+            type="number"
+            id="seguranca"
+            min="0"
+            placeholder="Ex.: 10">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Custo unitário
+        </label>
+
+        <input
+            type="number"
+            id="custo"
+            min="0"
+            step="0.01"
+            placeholder="R$ 0,00">
+
+    </div>
+
+
+    <button
+        class="btn-primary"
+        onclick="adicionarProduto()">
+
+        Registrar sugestão de compra
+
+    </button>
+
+
+    <div class="tip">
+
+        <strong>
+            Cálculo automático
+        </strong>
+
+        O sistema considera a venda média,
+        o prazo de entrega e o estoque de
+        segurança para calcular a quantidade
+        recomendada.
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RESULTADOS
+===================================================== -->
+
+<div class="panel">
+
+
+    <div class="panel-title">
+
+        <h2>
+            Sugestões de compra
+        </h2>
+
+        <small id="contadorResultados">
+            0 registros
+        </small>
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Produto
+                    </th>
+
+                    <th>
+                        Categoria
+                    </th>
+
+                    <th>
+                        Estoque
+                    </th>
+
+                    <th>
+                        Comprar
+                    </th>
+
+                    <th>
+                        Valor
+                    </th>
+
+                    <th>
+                        Situação
+                    </th>
+
+                    <th>
+                        Responsável
+                    </th>
+
+                    <th>
+                        Ações
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="listaProdutos">
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div
+        class="empty"
+        id="mensagemVazia">
+
+        Nenhuma demanda registrada.
+
+    </div>
+
+
+    <div class="summary">
+
+
+        <div class="summary-item">
+
+            <div class="summary-label">
+                Produtos para compra
+            </div>
+
+            <div
+                class="summary-value"
+                id="resumoProdutos">
+
+                0
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <div class="summary-label">
+                Total de unidades
+            </div>
+
+            <div
+                class="summary-value"
+                id="resumoUnidades">
+
+                0
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <div class="summary-label">
+                Valor estimado
+            </div>
+
+            <div
+                class="summary-value"
+                id="resumoValor">
+
+                R$ 0,00
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div
+        class="recommendation"
+        id="recomendacao">
+
+        <div class="recommendation-title">
+            Análise operacional
+        </div>
+
+        Cadastre produtos para iniciar
+        o planejamento de compras.
+
+    </div>
+
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-brand">
+
+        AGAS • Associação Gaúcha de Supermercados
+
+    </div>
+
+
+    <div class="footer-description">
+
+        Sistema interno de apoio à gestão
+        e planejamento de compras
+
+    </div>
+
+
+    <div class="support">
+
+        <span>
+            Suporte operacional
+        </span>
+
+        <strong>
+            (51) 4000-2026
+        </strong>
+
+    </div>
+
+</footer>
+
+
+</section>
+
+
+<!-- =====================================================
+     MODAL DE EDIÇÃO
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="modal">
+
+<div class="modal">
+
+
+    <h3>
+        Editar demanda
+    </h3>
+
+
+    <input
+        type="hidden"
+        id="editarId">
+
+
+    <div class="form-group">
+
+        <label>
+            Produto
+        </label>
+
+        <input
+            type="text"
+            id="editarProduto">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Categoria
+        </label>
+
+        <select id="editarCategoria">
+
+            <option>
+                Lácteos
+            </option>
+
+            <option>
+                Bebidas
+            </option>
+
+            <option>
+                Alimentos
+            </option>
+
+            <option>
+                Hortifruti
+            </option>
+
+            <option>
+                Higiene e Limpeza
+            </option>
+
+            <option>
+                Padaria
+            </option>
+
+            <option>
+                Açougue
+            </option>
+
+            <option>
+                Congelados
+            </option>
+
+            <option>
+                Mercearia
+            </option>
+
+            <option>
+                Outros
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Venda média por dia
+        </label>
+
+        <input
+            type="number"
+            id="editarVendas"
+            min="0"
+            step="0.1">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Estoque atual
+        </label>
+
+        <input
+            type="number"
+            id="editarEstoque"
+            min="0">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Prazo do fornecedor
+        </label>
+
+        <input
+            type="number"
+            id="editarPrazo"
+            min="0">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Estoque de segurança
+        </label>
+
+        <input
+            type="number"
+            id="editarSeguranca"
+            min="0">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Custo unitário
+        </label>
+
+        <input
+            type="number"
+            id="editarCusto"
+            min="0"
+            step="0.01">
+
+    </div>
+
+
+    <div class="modal-actions">
+
+        <button
+            class="btn-secondary"
+            onclick="fecharModal()">
+
+            Cancelar
+
+        </button>
+
+
+        <button
+            class="btn-primary"
+            style="width:auto;margin:0"
+            onclick="salvarEdicao()">
+
+            Salvar alteração
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   USUÁRIO
+===================================================== */
+
+let usuarioAtual =
+    JSON.parse(
+        localStorage.getItem(
+            "agas_usuario"
+        )
+    ) || null;
+
+
+/* =====================================================
+   PRODUTOS
+===================================================== */
+
+let produtos =
+    JSON.parse(
+        localStorage.getItem(
+            "agas_sugestoes"
+        )
+    ) || [];
+
+
+/* =====================================================
+   CPF
+===================================================== */
+
+function formatarCPF(input){
+
+    let valor =
+        input.value
+        .replace(/\D/g,"")
+        .slice(0,11);
+
+
+    valor =
+        valor.replace(
+            /(\d{3})(\d)/,
+            "$1.$2"
+        );
+
+
+    valor =
+        valor.replace(
+            /(\d{3})(\d)/,
+            "$1.$2"
+        );
+
+
+    valor =
+        valor.replace(
+            /(\d{3})(\d{1,2})$/,
+            "$1-$2"
+        );
+
+
+    input.value =
+        valor;
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function entrarSistema(){
+
+    const nome =
+        document
+        .getElementById("loginNome")
+        .value
+        .trim();
+
+
+    const cpf =
+        document
+        .getElementById("loginCpf")
+        .value
+        .trim();
+
+
+    const setor =
+        document
+        .getElementById("loginSetor")
+        .value;
+
+
+    const erro =
+        document
+        .getElementById("loginError");
+
+
+    if(
+        !nome ||
+        !cpf ||
+        !setor
+    ){
+
+        erro.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    erro.style.display =
+        "none";
+
+
+    usuarioAtual = {
+
+        nome:nome,
+
+        cpf:cpf,
+
+        setor:setor
+
+    };
+
+
+    localStorage.setItem(
+        "agas_usuario",
+        JSON.stringify(
+            usuarioAtual
+        )
+    );
+
+
+    mostrarSistema();
+
+}
+
+
+/* =====================================================
+   MOSTRAR SISTEMA
+===================================================== */
+
+function mostrarSistema(){
+
+    if(!usuarioAtual){
+
+        document
+        .getElementById("loginPage")
+        .style.display =
+            "flex";
+
+        document
+        .getElementById("systemPage")
+        .style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    document
+    .getElementById("loginPage")
+    .style.display =
+        "none";
+
+
+    document
+    .getElementById("systemPage")
+    .style.display =
+        "block";
+
+
+    document
+    .getElementById("usuarioLogado")
+    .textContent =
+        usuarioAtual.nome;
+
+
+    document
+    .getElementById("setorLogado")
+    .textContent =
+        usuarioAtual.setor;
+
+
+    renderizar();
+
+}
+
+
+/* =====================================================
+   SAIR
+===================================================== */
+
+function sairSistema(){
+
+    usuarioAtual = null;
+
+    localStorage.removeItem(
+        "agas_usuario"
+    );
+
+
+    document
+    .getElementById("systemPage")
+    .style.display =
+        "none";
+
+
+    document
+    .getElementById("loginPage")
+    .style.display =
+        "flex";
+
+}
+
+
+/* =====================================================
+   DINHEIRO
+===================================================== */
+
+function dinheiro(valor){
+
+    return Number(valor)
+    .toLocaleString(
+        "pt-BR",
+        {
+            style:"currency",
+            currency:"BRL"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SEGURANÇA HTML
+===================================================== */
+
+function escaparHTML(texto){
+
+    const elemento =
+        document.createElement("div");
+
+    elemento.textContent =
+        texto;
+
+    return elemento.innerHTML;
+
+}
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+function dataAtual(){
+
+    return new Date()
+    .toLocaleString(
+        "pt-BR"
+    );
+
+}
+
+
+/* =====================================================
+   CÁLCULO
+===================================================== */
+
+function calcularProduto(
+    nome,
+    categoria,
+    vendas,
+    estoque,
+    prazo,
+    seguranca,
+    custo,
+    id,
+    responsavel,
+    setor,
+    data
+){
+
+    const consumo =
+        vendas * prazo;
+
+
+    const necessario =
+        consumo + seguranca;
+
+
+    const quantidade =
+        Math.max(
+            0,
+            Math.ceil(
+                necessario -
+                estoque
+            )
+        );
+
+
+    const valor =
+        quantidade * custo;
+
+
+    let cobertura = 0;
+
+
+    if(vendas > 0){
+
+        cobertura =
+            estoque / vendas;
+
+    }
+
+
+    let status;
+
+    let classe;
+
+
+    if(quantidade > 0){
+
+        if(
+            cobertura <= prazo
+        ){
+
+            status =
+                "COMPRAR AGORA";
+
+            classe =
+                "urgente";
+
+        }else{
+
+            status =
+                "COMPRAR EM BREVE";
+
+            classe =
+                "atencao";
+
+        }
+
+    }else{
+
+        status =
+            "ESTOQUE OK";
+
+        classe =
+            "normal";
+
+    }
+
+
+    return {
+
+        id:id,
+
+        nome:nome,
+
+        categoria:categoria,
+
+        vendas:vendas,
+
+        estoque:estoque,
+
+        prazo:prazo,
+
+        seguranca:seguranca,
+
+        custo:custo,
+
+        estoqueNecessario:
+            necessario,
+
+        quantidadeCompra:
+            quantidade,
+
+        valorCompra:
+            valor,
+
+        diasCobertura:
+            cobertura,
+
+        status:status,
+
+        classe:classe,
+
+        responsavel:
+            responsavel,
+
+        setor:
+            setor,
+
+        data:
+            data
+
+    };
+
+}
+
+
+/* =====================================================
+   ADICIONAR PRODUTO
+===================================================== */
+
+function adicionarProduto(){
+
+    if(!usuarioAtual){
+
+        alert(
+            "Sua sessão expirou."
+        );
+
+        mostrarSistema();
+
+        return;
+
+    }
+
+
+    const nome =
+        document
+        .getElementById("produto")
+        .value
+        .trim();
+
+
+    const categoria =
+        document
+        .getElementById("categoria")
+        .value;
+
+
+    const vendas =
+        Number(
+            document
+            .getElementById("vendas")
+            .value
+        );
+
+
+    const estoque =
+        Number(
+            document
+            .getElementById("estoque")
+            .value
+        );
+
+
+    const prazo =
+        Number(
+            document
+            .getElementById("prazo")
+            .value
+        );
+
+
+    const seguranca =
+        Number(
+            document
+            .getElementById("seguranca")
+            .value
+        );
+
+
+    const custo =
+        Number(
+            document
+            .getElementById("custo")
+            .value
+        );
+
+
+    if(
+
+        !nome ||
+
+        !categoria ||
+
+        vendas < 0 ||
+
+        estoque < 0 ||
+
+        prazo < 0 ||
+
+        seguranca < 0 ||
+
+        custo < 0
+
+    ){
+
+        alert(
+            "Preencha todos os campos corretamente."
+        );
+
+        return;
+
+    }
+
+
+    const produto =
+        calcularProduto(
+
+            nome,
+
+            categoria,
+
+            vendas,
+
+            estoque,
+
+            prazo,
+
+            seguranca,
+
+            custo,
+
+            Date.now(),
+
+            usuarioAtual.nome,
+
+            usuarioAtual.setor,
+
+            dataAtual()
+
+        );
+
+
+    produtos.push(
+        produto
+    );
+
+
+    salvarDados();
+
+    limparFormulario();
+
+    renderizar();
+
+}
+
+
+/* =====================================================
+   LIMPAR
+===================================================== */
+
+function limparFormulario(){
+
+    [
+
+        "produto",
+
+        "categoria",
+
+        "vendas",
+
+        "estoque",
+
+        "prazo",
+
+        "seguranca",
+
+        "custo"
+
+    ].forEach(id => {
+
+        document
+        .getElementById(id)
+        .value = "";
+
+    });
+
+
+    document
+    .getElementById("produto")
+    .focus();
+
+}
+
+
+/* =====================================================
+   SALVAR
+===================================================== */
+
+function salvarDados(){
+
+    localStorage.setItem(
+
+        "agas_sugestoes",
+
+        JSON.stringify(
+            produtos
+        )
+
+    );
+
+}
+
+
+/* =====================================================
+   EXCLUIR
+===================================================== */
+
+function excluirProduto(id){
+
+    const produto =
+        produtos.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!produto) return;
+
+
+    if(
+        !confirm(
+            `Excluir a demanda de "${produto.nome}"?`
+        )
+    ){
+
+        return;
+
+    }
+
+
+    produtos =
+        produtos.filter(
+            item =>
+                item.id !== id
+        );
+
+
+    salvarDados();
+
+    renderizar();
+
+}
+
+
+/* =====================================================
+   EDITAR
+===================================================== */
+
+function abrirEdicao(id){
+
+    const produto =
+        produtos.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!produto) return;
+
+
+    document
+    .getElementById("editarId")
+    .value =
+        produto.id;
+
+
+    document
+    .getElementById("editarProduto")
+    .value =
+        produto.nome;
+
+
+    document
+    .getElementById("editarCategoria")
+    .value =
+        produto.categoria;
+
+
+    document
+    .getElementById("editarVendas")
+    .value =
+        produto.vendas;
+
+
+    document
+    .getElementById("editarEstoque")
+    .value =
+        produto.estoque;
+
+
+    document
+    .getElementById("editarPrazo")
+    .value =
+        produto.prazo;
+
+
+    document
+    .getElementById("editarSeguranca")
+    .value =
+        produto.seguranca;
+
+
+    document
+    .getElementById("editarCusto")
+    .value =
+        produto.custo;
+
+
+    document
+    .getElementById("modal")
+    .style.display =
+        "flex";
+
+}
+
+
+function fecharModal(){
+
+    document
+    .getElementById("modal")
+    .style.display =
+        "none";
+
+}
+
+
+function salvarEdicao(){
+
+    const id =
+        Number(
+            document
+            .getElementById("editarId")
+            .value
+        );
+
+
+    const nome =
+        document
+        .getElementById("editarProduto")
+        .value
+        .trim();
+
+
+    const categoria =
+        document
+        .getElementById("editarCategoria")
+        .value;
+
+
+    const vendas =
+        Number(
+            document
+            .getElementById("editarVendas")
+            .value
+        );
+
+
+    const estoque =
+        Number(
+            document
+            .getElementById("editarEstoque")
+            .value
+        );
+
+
+    const prazo =
+        Number(
+            document
+            .getElementById("editarPrazo")
+            .value
+        );
+
+
+    const seguranca =
+        Number(
+            document
+            .getElementById("editarSeguranca")
+            .value
+        );
+
+
+    const custo =
+        Number(
+            document
+            .getElementById("editarCusto")
+            .value
+        );
+
+
+    if(
+
+        !nome ||
+
+        !categoria ||
+
+        vendas < 0 ||
+
+        estoque < 0 ||
+
+        prazo < 0 ||
+
+        seguranca < 0 ||
+
+        custo < 0
+
+    ){
+
+        alert(
+            "Preencha todos os campos corretamente."
+        );
+
+        return;
+
+    }
+
+
+    const antigo =
+        produtos.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!antigo) return;
+
+
+    const atualizado =
+        calcularProduto(
+
+            nome,
+
+            categoria,
+
+            vendas,
+
+            estoque,
+
+            prazo,
+
+            seguranca,
+
+            custo,
+
+            id,
+
+            antigo.responsavel,
+
+            antigo.setor,
+
+            antigo.data
+
+        );
+
+
+    const indice =
+        produtos.findIndex(
+            item =>
+                item.id === id
+        );
+
+
+    produtos[indice] =
+        atualizado;
+
+
+    salvarDados();
+
+    fecharModal();
+
+    renderizar();
+
+}
+
+
+/* =====================================================
+   FILTROS
+===================================================== */
+
+function obterProdutosFiltrados(){
+
+    const busca =
+        document
+        .getElementById("busca")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const categoria =
+        document
+        .getElementById("filtroCategoria")
+        .value;
+
+
+    const status =
+        document
+        .getElementById("filtroStatus")
+        .value;
+
+
+    return produtos.filter(
+        produto => {
+
+            const nomeOk =
+                produto.nome
+                .toLowerCase()
+                .includes(
+                    busca
+                );
+
+
+            const categoriaOk =
+                categoria === "todas" ||
+                produto.categoria ===
+                    categoria;
+
+
+            const statusOk =
+                status === "todos" ||
+                produto.classe ===
+                    status;
+
+
+            return
+                nomeOk &&
+                categoriaOk &&
+                statusOk;
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   RENDERIZAR
+===================================================== */
+
+function renderizar(){
+
+    const lista =
+        document
+        .getElementById(
+            "listaProdutos"
+        );
+
+
+    const vazio =
+        document
+        .getElementById(
+            "mensagemVazia"
+        );
+
+
+    lista.innerHTML =
+        "";
+
+
+    const filtrados =
+        obterProdutosFiltrados();
+
+
+    const prioridade = {
+
+        urgente:1,
+
+        atencao:2,
+
+        normal:3
+
+    };
+
+
+    filtrados.sort(
+        (a,b) =>
+            prioridade[a.classe] -
+            prioridade[b.classe]
+    );
+
+
+    filtrados.forEach(
+        produto => {
+
+
+            const linha =
+                document
+                .createElement("tr");
+
+
+            linha.innerHTML = `
+
+                <td>
+
+                    <div
+                        class="product-name">
+
+                        ${escaparHTML(
+                            produto.nome
+                        )}
+
+                    </div>
+
+                    <div
+                        class="product-info">
+
+                        ${produto.vendas}
+                        un./dia
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="category">
+
+                        ${escaparHTML(
+                            produto.categoria
+                        )}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    ${produto.estoque}
+
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="compra">
+
+                        ${produto.quantidadeCompra}
+
+                    </span>
+
+                    un.
+
+                </td>
+
+
+                <td>
+
+                    ${dinheiro(
+                        produto.valorCompra
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="status
+                        ${produto.classe}">
+
+                        <span
+                            class="status-dot">
+                        </span>
+
+                        ${produto.status}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <div
+                        class="product-name">
+
+                        ${escaparHTML(
+                            produto.responsavel
+                        )}
+
+                    </div>
+
+                    <div
+                        class="product-info">
+
+                        ${produto.data}
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <button
+                        class="action-button edit"
+                        onclick="
+                            abrirEdicao(
+                                ${produto.id}
+                            )
+                        ">
+
+                        Editar
+
+                    </button>
+
+
+                    <button
+                        class="action-button delete"
+                        onclick="
+                            excluirProduto(
+                                ${produto.id}
+                            )
+                        ">
+
+                        Excluir
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            lista.appendChild(
+                linha
+            );
+
+        }
+    );
+
+
+    vazio.style.display =
+        filtrados.length === 0
+        ? "block"
+        : "none";
+
+
+    document
+    .getElementById(
+        "contadorResultados"
+    )
+    .textContent =
+        `${filtrados.length} registro(s)`;
+
+
+    atualizarDashboard();
+
+    gerarRecomendacao();
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function atualizarDashboard(){
+
+    let comprar = 0;
+
+    let unidades = 0;
+
+    let valor = 0;
+
+
+    produtos.forEach(
+        produto => {
+
+            if(
+                produto.quantidadeCompra > 0
+            ){
+
+                comprar++;
+
+                unidades +=
+                    produto.quantidadeCompra;
+
+                valor +=
+                    produto.valorCompra;
+
+            }
+
+        }
+    );
+
+
+    document
+    .getElementById(
+        "totalProdutos"
+    )
+    .textContent =
+        produtos.length;
+
+
+    document
+    .getElementById(
+        "produtosComprar"
+    )
+    .textContent =
+        comprar;
+
+
+    document
+    .getElementById(
+        "totalUnidades"
+    )
+    .textContent =
+        unidades;
+
+
+    document
+    .getElementById(
+        "valorCompras"
+    )
+    .textContent =
+        dinheiro(
+            valor
+        );
+
+
+    document
+    .getElementById(
+        "resumoProdutos"
+    )
+    .textContent =
+        comprar;
+
+
+    document
+    .getElementById(
+        "resumoUnidades"
+    )
+    .textContent =
+        unidades;
+
+
+    document
+    .getElementById(
+        "resumoValor"
+    )
+    .textContent =
+        dinheiro(
+            valor
+        );
+
+}
+
+
+/* =====================================================
+   RECOMENDAÇÃO
+===================================================== */
+
+function gerarRecomendacao(){
+
+    const elemento =
+        document
+        .getElementById(
+            "recomendacao"
+        );
+
+
+    if(
+        produtos.length === 0
+    ){
+
+        elemento.innerHTML = `
+
+            <div
+                class="recommendation-title">
+
+                Análise operacional
+
+            </div>
+
+            Cadastre produtos para iniciar
+            o planejamento de compras.
+
+        `;
+
+        return;
+
+    }
+
+
+    const urgentes =
+        produtos.filter(
+            produto =>
+                produto.classe ===
+                "urgente"
+        );
+
+
+    const atencao =
+        produtos.filter(
+            produto =>
+                produto.classe ===
+                "atencao"
+        );
+
+
+    if(
+        urgentes.length > 0
+    ){
+
+        elemento.innerHTML = `
+
+            <div
+                class="recommendation-title">
+
+                Compra prioritária
+
+            </div>
+
+            Existem
+            <strong>
+                ${urgentes.length}
+            </strong>
+            produto(s) com necessidade
+            imediata de reposição.
+
+        `;
+
+        return;
+
+    }
+
+
+    if(
+        atencao.length > 0
+    ){
+
+        elemento.innerHTML = `
+
+            <div
+                class="recommendation-title">
+
+                Planejamento de reposição
+
+            </div>
+
+            Existem
+            <strong>
+                ${atencao.length}
+            </strong>
+            produto(s) que precisam
+            de reposição.
+
+        `;
+
+        return;
+
+    }
+
+
+    elemento.innerHTML = `
+
+        <div
+            class="recommendation-title">
+
+            Estoque adequado
+
+        </div>
+
+        Os produtos analisados possuem
+        estoque suficiente de acordo
+        com os parâmetros informados.
+
+    `;
+
+}
+
+
+/* =====================================================
+   FECHAR MODAL
+===================================================== */
+
+document
+.getElementById("modal")
+.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target === this
+        ){
+
+            fecharModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   INICIALIZAÇÃO
+===================================================== */
+
+mostrarSistema();
+
+</script>
+
+</body>
+
+</html>
